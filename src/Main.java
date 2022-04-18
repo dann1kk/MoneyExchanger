@@ -34,12 +34,12 @@ public class Main {
 
                                 case 4:
                                         Exchange ex = new Exchange();
-                                        ex.forthCase();
+                                        ex.fourthCase();
                                         break;
 
                                 case 5:
                                         Receipt rc = new Receipt();
-                                        rc.print();
+                                        rc.fifthCase();
                                         break;
 
                                 case 0:
@@ -51,6 +51,7 @@ public class Main {
                         }
                         System.out.println();
                 } while (!quit);
+
                 System.out.println("Good Bye!");
 
         }

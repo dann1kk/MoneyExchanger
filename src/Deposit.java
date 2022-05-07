@@ -1,4 +1,4 @@
-package BankApp;
+package MoneyExchanger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +30,49 @@ public class Deposit {
         System.out.println("What is the sale-price of your currency?");
         priceS = in.nextFloat();
 
+        if (currency.equals("MDL")){
+            if (currencies.containsKey("MDL")){
+                currencies.put("MDL", currencies.get("MDL") + money);
+                initialCurrencies.put("MDL", initialCurrencies.get("MDL") + money);
+            }
+            else{
+                initialCurrencies.put("MDL", money);
+                currencies.put("MDL", money);
+            }
+            priceBuy.put(currency, priceB);
+            priceSale.put(currency, priceS);
+        }
+        else if(currency.equals(("LEU"))){
+            if (currencies.containsKey("MDL")){
+                currencies.put("MDL", currencies.get("MDL") + money);
+                initialCurrencies.put("MDL", initialCurrencies.get("MDL") + money);
+            }
+            else{
+                currencies.put("MDL", money);
+                initialCurrencies.put("MDL", money);
+
+            }
+            priceBuy.put("MDL", priceB);
+            priceSale.put("MDL", priceS);
+        }
+        else if(currency.equals("LEI")){
+            if (currencies.containsKey("MDL")){
+                currencies.put("MDL", currencies.get("MDL") + money);
+            initialCurrencies.put("MDL", initialCurrencies.get("MDL") + money);}
+            else{
+                currencies.put("MDL", money);
+                initialCurrencies.put("MDL", money);
+
+            }
+            priceBuy.put("MDL", priceB);
+            priceSale.put("MDL", priceS);
+        }
+        else{
+
         if (currencies.containsKey(currency)){
-            currencies.put(currency, currencies.get(currency) + money);}
+            currencies.put(currency, currencies.get(currency) + money);
+            initialCurrencies.put(currency, initialCurrencies.get(currency) + money);
+        }
         else
             initialCurrencies.put(currency, money);
         currencies.put(currency, money);
@@ -46,5 +87,5 @@ public class Deposit {
         else
             priceSale.put(currency, priceS);
     }
-}
+}}
 

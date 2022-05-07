@@ -1,9 +1,9 @@
-package BankApp;
+package MoneyExchanger;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static BankApp.Deposit.*;
+import static MoneyExchanger.Deposit.*;
 
 public class Receipt {
     void fifthCase() {

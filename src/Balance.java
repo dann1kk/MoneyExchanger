@@ -1,6 +1,6 @@
-package BankApp;
+package MoneyExchanger;
 
-import static BankApp.Deposit.*;
+import static MoneyExchanger.Deposit.*;
 
 public class Balance {
     public static void thirdCase() {

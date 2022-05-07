@@ -1,105 +1,121 @@
-package BankApp;
+package MoneyExchanger;
 
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
-import static BankApp.Deposit.*;
+import static MoneyExchanger.Deposit.*;
 
 public class Exchange {
 
     Scanner in = new Scanner(System.in);
     static String currencyChoice;
     static String currencyExchange;
-    static float toExchange;
+    static float toBuy;
     static float valueNew;
     static float value2New;
 
     void fourthCase() {
         System.out.println("Do you want to buy or sale?");
+        System.out.println("SALE[Currency -> Lei ]; BUY -> [Lei -> Currency]");
         String choice = in.next().toUpperCase();
 
-        if (choice.equals("SALE")) {
-            System.out.println("Which of your currencies yoo want to sale?");
+  /*      if (choice.equals("SALE")) {
+            System.out.println("What currency you want to sale?           [Currency -> Lei]");
             System.out.println(currencies.keySet());
             String currencytoSale = in.next().toUpperCase();
             if (!currencies.containsKey(currencytoSale)) {
-                System.out.println("You introduced a wrong currency, you don't have such one in your account");
+                System.out.println("What is the buy-price of your currency?");
+                priceB = in.nextFloat();
+                priceBuy.put(currencytoSale, priceB);
+                System.out.println("What is the sale-price of your currency?");
+                priceS = in.nextFloat();
+                priceSale.put(currencytoSale, priceS);
+                System.out.println("How much you want to sale");
+                float toSale = in.nextFloat();
+                float temp1 = toSale * priceSale.get(currencytoSale);
+
+                }*/
+
+
+        if (choice.equals("SALE")) {
+            System.out.println("What currency you want to sale?");
+
+            String currencytoSale = in.next().toUpperCase();
+            if (!currencies.containsKey(currencytoSale)) {
+                System.out.println("What is the buy-price of your currency?");
+                priceB = in.nextFloat();
+                priceBuy.put(currencytoSale, priceB);
+                System.out.println("What is the sale-price of your currency?");
+                priceS = in.nextFloat();
+                priceSale.put(currencytoSale, priceS);
+                System.out.println("How much you want to sale?");
+                float toSale = in.nextFloat();
+                float temp1 = toSale * priceSale.get(currencytoSale);
+                if (currencies.containsKey("MDL")) {
+                    if (temp1 > currencies.get("MDL"))
+                        System.out.println("Not Enough Resources!");
+                    else {
+                        System.out.println("Exchange Performed Successfully!");
+                        if (currencies.containsKey(currencytoSale)) {
+                            currencies.put(currencytoSale, currencies.get(currencytoSale) + toSale);
+                        } else {
+                            currencies.put(currencytoSale, toSale);
+                        }
+                        currencies.put("MDL", currencies.get("MDL") - temp1);
+                    }
+                } else
+                    System.out.println("Not enough resources!");
             } else {
                 System.out.println("How much you want to sale?");
                 float toSale = in.nextFloat();
                 float temp1 = toSale * priceSale.get(currencytoSale);
-                currencies.put(currencytoSale, currencies.get(currencytoSale) - toSale);
-                if(currencies.get(currencytoSale) > toSale)
-                    System.out.println("Sale performed successfully!");
                 if (currencies.containsKey("MDL")) {
-                    System.out.println("Sale performed successfully!");
-                    currencies.put(currencytoSale, currencies.get(currencytoSale) + temp1);
-                } else {
-                    System.out.println("Sale performed successfully!");
-                    currencies.put("MDL", temp1);
-                    priceSale.put("MDL", 1F);
-                    priceBuy.put("MDL", 1F);
-                    initialCurrencies.put("MDL", 0F);
+                    if (temp1 > currencies.get("MDL"))
+                        System.out.println("Not Enough Resources!");
+                    else {
+                        System.out.println("Exchange Succeeded!");
+                        if (currencies.containsKey(currencytoSale)) {
+                            currencies.put(currencytoSale, currencies.get(currencytoSale) + toSale);
+                        } else {
+                            currencies.put(currencytoSale, toSale);
+                        }
+                        currencies.put("MDL", currencies.get("MDL") - temp1);
+                    }
                 }
             }
-
         } else {
 
-            System.out.println("Which of your currencies you want to exchange?");
-            System.out.println(currencies.keySet());
+            System.out.println("Which currency you want to buy?");
 
             currencyChoice = in.next().toUpperCase();
-            if (!currencies.containsKey(currencyChoice)) {
-                System.out.println("You introduced a wrong currency, you don't have such one in your account");
-            }
-            System.out.println("To which currency you want to exchange?");
 
-            currencyExchange = in.next().toUpperCase();
-
-            if (currencies.containsKey(currencyExchange)) {
+            if (currencies.containsKey(currencyChoice)) {
                 System.out.println("How much you want to buy?");
                 try {
-                    toExchange = in.nextFloat();
-                }catch(InputMismatchException e) {
+                    toBuy = in.nextFloat();
+                } catch (InputMismatchException e) {
                     System.out.println("Wrong input");
                 }
-                float temp1 = toExchange * priceSale.get(currencyExchange);
-                float temp2 = currencies.get(currencyChoice) * priceSale.get(currencyChoice);
-                float temp3 = temp2 - temp1;
-                float temp4 = temp3 / priceBuy.get(currencyChoice);
+                float temp1 = toBuy * priceBuy.get(currencyChoice);
+                if (currencies.containsKey(currencyChoice)) {
+                    if (toBuy < currencies.get(currencyChoice)) {
+                        currencies.put(currencyChoice, currencies.get(currencyChoice) - toBuy);
+                        System.out.println("Exchange Succeeded!");
+                        if (currencies.containsKey("MDL")) {
+                            currencies.put("MDL", currencies.get("MDL") + temp1);
+                        } else {
+                            currencies.put("MDL", temp1);
+                            initialCurrencies.put("MDL", 0F);
+                        }
+                    } else
+                        System.out.println("Not enough resources!");
 
-                if (temp3 > 0) {
-                    currencies.put(currencyChoice, temp4);
-                    currencies.put(currencyExchange, currencies.get(currencyExchange) + toExchange);
                 } else
-                    System.out.println("\nNot enough resources for such exchange!");
-            } else {
-                currencies.put(currencyExchange, (float) 0);
-
-                System.out.println("Enter the buy-price of the currency:");
-                valueNew = in.nextFloat();
-                priceBuy.put(currencyExchange, valueNew);
-
-                System.out.println("Enter the sale-price of the currency:");
-                value2New = in.nextFloat();
-                priceSale.put(currencyExchange, value2New);
-
-                System.out.println("How much you want to buy?");
-                toExchange = in.nextFloat();
-
-                float temp1 = toExchange * priceSale.get(currencyExchange);
-                float temp2 = currencies.get(currencyChoice) * priceSale.get(currencyChoice);
-                float temp3 = temp2 - temp1;
-                float temp4 = temp3 / priceBuy.get(currencyChoice);
-
-                if (temp3 > 0) {
-                    currencies.put(currencyChoice, temp4);
-                    currencies.put(currencyExchange, currencies.get(currencyExchange) + toExchange);
-                    System.out.println("\nExchange Successfully Performed");
-                } else
-                    System.out.println("Not enough resources for such exchange");
-
+                    System.out.println("No such currency in vault!");
             }
+            else
+                System.out.println("No such currency in vault!");
         }
+
     }
 }
-

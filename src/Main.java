@@ -1,4 +1,4 @@
-package BankApp;
+package MoneyExchanger;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ public class Main {
                 Scanner in = new Scanner(System.in);
 
                 do {
-                        System.out.println("1. Deposit money");
+                        System.out.println("1. Add money in vault");
                         System.out.println("2. Withdraw money");
                         System.out.println("3. Check balance");
                         System.out.println("4. Exchange money");

@@ -45,8 +45,8 @@ public class Exchange {
                         }
                         currencies.put("MDL", currencies.get("MDL") - temp1);
                     }
-                } else
-                    System.out.println("Not enough resources!");
+                } else{
+                    System.out.println("Not enough resources!");}
             } else {
                 System.out.println("How much you want to sale?");
                 float toSale = in.nextFloat();
@@ -101,6 +101,7 @@ public class Exchange {
                             System.out.println("No such currency in vault!");
                     } else
                         System.out.println("No such currency in vault!");
+                    break;
                 case 2:
                     System.out.println("With which currency you want to buy?");
                     String currencySell = in.next().toUpperCase();
@@ -144,6 +145,7 @@ public class Exchange {
                             System.out.println("Not enough resources");
 
                     }
+                    break;
             }
 
         }
